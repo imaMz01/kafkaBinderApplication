@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: KafkaBinder
+  cloud:
+    function:
+      definition: consumerBinding;processorBinding;producerBanding #register our function as cloud function
+    stream:
+      bindings:
+        producerBanding-out-0:
+          destination: processor-topic
+        processorBinding-in-0:
+          destination: processor-topic
+        processorBinding-out-0:
+          destination: consumer-topic
+        consumerBinding-in-0:
+          destination: consumer-topic #we tell to kafka binder don't create topic with 'consumerBinding-in-0' instead use 'consumer-topic'
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
